@@ -1,0 +1,36 @@
+version: '3'
+services:
+  next-convo:
+    image: next-convo
+    build: 
+      context: ./convo-app
+      dockerfile: Dockerfile
+    stdin_open: true
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./convo-app:/usr/src/app
+      - /usr/src/app/node_modules
+    environment:
+      - NODE_ENV=development
+    networks:
+      - next-convo-app
+    depends_on:
+      - mongo
+
+  mongo:
+    image: mongo:3.6.19-xenial
+    ports:
+      - "27017:27017"
+    networks:
+      - next-convo-app
+    volumes:
+      - mongo-data:/data/db
+
+networks:
+  next-convo-app:
+    driver: bridge
+
+volumes:
+  mongo-data:
+    driver: local
