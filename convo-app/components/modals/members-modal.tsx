@@ -21,7 +21,7 @@ import qs from 'query-string';
 import { useRouter } from 'next/navigation';
 
 const roleIconMap = {
-  "GUEST": null,
+  "GUEST": "",
   "MODERATOR": <ShieldCheck className='h-4 w-d ml-2 text-indigo-500' />,
   "ADMIN": <ShieldAlert className='h-4 w-4 text-rose-500' />
 }
@@ -87,7 +87,18 @@ export const MembersModal = () => {
         <ScrollArea 
           className='mt-8 max-h-[420px] pr-6'
         >
-          { server?.members?.map((member) => (
+          { server?.members?.map((
+              member: {
+                id: string, 
+                profile: {
+                  imageUrl: string,
+                  name: string,
+                  email: string
+                }, 
+                profileId: string,
+                role: "GUEST" | "ADMIN" | "MODERATOR" 
+              }
+            ) => (
             <div className="flex items-center gap-x-2 mb-6" key={member.id}>
               <UserAvatar src={member.profile.imageUrl} />
               <div className="flex flex-col gap-y-1">
