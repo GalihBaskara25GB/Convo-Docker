@@ -32,8 +32,7 @@ export const SocketProvider = ({
 
   useEffect(() => {
     const socketInstance = new (ClientIO as any)(process.env.NEXT_PUBLIC_SITE_URL!, {
-      // path: "/api/socket/io",
-      path: "/api/websocket",
+      path: "/api/socket/io",
       addTrailingSlash: false,
     });
 
