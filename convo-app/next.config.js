@@ -1,5 +1,20 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  webpack: (config) => {
+    config.externals.push({
+      'utf-8-validate': 'commonjs utf-8-validate',
+      'bufferutil': 'commonjs bufferutil',
+    })
+    
+    return config
+  },
+//   typescript: {
+//     // !! WARN !!
+//     // Dangerously allow production builds to successfully complete even if
+//     // your project has type errors.
+//     // !! WARN !!
+//     ignoreBuildErrors: true,
+//   },
   images: {
     domains: [
       "uploadthing.com",
@@ -9,23 +24,3 @@ const nextConfig = {
 }
 
 module.exports = nextConfig
-
-module.exports = {
-  webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
-    config.externals.push({
-      'utf-8-validate': 'commonjs utf-8-validate',
-      'bufferutil': 'commonjs bufferutil',
-    })
-    return config
-  },
-}
-
-module.exports = {
-  typescript: {
-    // !! WARN !!
-    // Dangerously allow production builds to successfully complete even if
-    // your project has type errors.
-    // !! WARN !!
-    ignoreBuildErrors: true,
-  },
-}
