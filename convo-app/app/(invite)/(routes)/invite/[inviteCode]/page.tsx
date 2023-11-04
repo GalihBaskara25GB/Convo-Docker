@@ -1,5 +1,5 @@
-import { currentProfile } from "@/lib/current-profile"
 import { db } from "@/lib/db"
+import { initProfile } from "@/lib/init-profile"
 import { redirectToSignIn } from "@clerk/nextjs"
 import { redirect } from "next/navigation"
 
@@ -12,13 +12,13 @@ interface InviteCodePageProps {
 const InviteCodePage = async ({
   params
 }: InviteCodePageProps) => {
-  const profile = await currentProfile()
+  const profile = await initProfile()
 
   if(!profile)
     return redirectToSignIn()
 
-    if(!params.inviteCode)
-      return redirect("/")
+  if(!params.inviteCode)
+    return redirect("/")
 
   const existingServer = await db.server.findFirst({
     where: {

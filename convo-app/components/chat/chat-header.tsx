@@ -4,6 +4,7 @@ import { Hash } from 'lucide-react'
 import React from 'react'
 import { SocketIndicator } from '../socket-indicator'
 import { ChatVideoButton } from './chat-video-button'
+import { UserButton } from '@clerk/nextjs'
 
 interface ChantHeaderProps {
   serverId: string
@@ -37,7 +38,19 @@ export const ChatHeader = ({
         { type === "conversation" && (
           <ChatVideoButton />
         )}
-        <SocketIndicator />
+        {/* <SocketIndicator /> */}
+        <div className='md:hidden p-0.5 rounded-full bg-green-500 mr-1.5'>
+          <UserButton
+            afterSignOutUrl='/'
+            appearance={{
+              elements: {
+                avatarBox: "h-[24px] w-[24px]",
+                
+              }
+            }}
+          />
+        </div>
+
       </div>
     </div>
   )

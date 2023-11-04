@@ -18,12 +18,15 @@ export const initProfile = async () => {
   if (profile) 
     return profile;
 
+  const email = user.emailAddresses[0].emailAddress
+  const fullName = user.firstName && user.lastName ? `${user.firstName} ${user.lastName}` : email.split("@")[0]
+
   const newProfile = await db.profile.create({
     data: {
       userId: user.id,
-      name: `${user.firstName} ${user.lastName}`,
+      name: fullName,
       imageUrl: user.imageUrl,
-      email: user.emailAddresses[0].emailAddress
+      email: email
     }
   });
 
