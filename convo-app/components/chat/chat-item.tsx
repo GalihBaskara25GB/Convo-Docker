@@ -110,15 +110,15 @@ export const ChatItem = ({
     })
   }, [content, form])
 
-  const fileType = fileUrl?.split(".").pop()
+  const fileType = fileUrl?.split(".").pop()?.toLowerCase()
 
   const isAdmin = currentMember.role === MemberRole.ADMIN
   const isModerator = currentMember.role === MemberRole.MODERATOR
   const isOwner = currentMember.id === member.id
   const canDeleteMessage = !deleted && (isAdmin || isModerator || isOwner)
   const canEditMessage = !deleted && isOwner && !fileUrl
-  const isPdf = fileType
-  const isImage = !isPdf && fileUrl
+  const isPdf = fileType == 'pdf'
+  const isImage = fileType == 'png' || fileType == 'jpg' || fileType == 'jpeg' || fileType == 'gif' 
 
   return (
     <div 
@@ -167,7 +167,7 @@ export const ChatItem = ({
               href={fileUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="relative aspect-square rounded-md mt-2 overflow-hidden border flex items-center bg-secondary h-48 w-48"
+              className="relative aspect-auto rounded-md mt-2 overflow-hidden border flex items-center bg-secondary h-48 w-96"
             >
               <Image 
                 src={fileUrl}
